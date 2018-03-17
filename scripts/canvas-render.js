@@ -9,6 +9,7 @@
 	const MIN_GAME_WIDTH = 300;
 	const MIN_GAME_HEIGHT = 300;
 	const CANVAS_ELEMENTS = document.querySelectorAll('.game canvas');
+
 	[].forEach.call(CANVAS_ELEMENTS, function (it) {
 		it.width = BASIC_GAME_SIZE;
 		it.height = BASIC_GAME_SIZE;

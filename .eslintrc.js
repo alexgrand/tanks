@@ -90,7 +90,7 @@ module.exports = {
         "new-parens": "error",
         "newline-after-var": [
             "error",
-            "never"
+            "always"
         ],
         "newline-before-return": "error",
         "newline-per-chained-call": "error",

@@ -5,3 +5,9 @@
 	position: absolute;
 	background-color: transparent;
 }
+.game-background {
+	z-index: 1;
+}
+.game-front {
+	z-index: 2;
+}

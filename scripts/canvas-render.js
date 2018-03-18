@@ -5,7 +5,7 @@
 	const PADDING = 20;
 	const BASIC_GAME_SIZE = 300;
 	const MAX_GAME_WIDTH = 1500;
-	const MAX_GAME_HEIGHT = 500;
+	const MAX_GAME_HEIGHT = 800;
 	const MIN_GAME_WIDTH = 300;
 	const MIN_GAME_HEIGHT = 300;
 	const CANVAS_ELEMENTS = document.querySelectorAll('.game canvas');
@@ -16,7 +16,7 @@
 		if (DOCUMENT_WIDTH < MAX_GAME_WIDTH && DOCUMENT_WIDTH > MIN_GAME_WIDTH) {
 			it.width = DOCUMENT_WIDTH;
 		}
-		if (DOCUMENT_HEIGHT < MAX_GAME_HEIGHT && DOCUMENT_HEIGHT > MIN_GAME_HEIGHT) {
+		if (DOCUMENT_HEIGHT > MIN_GAME_HEIGHT && DOCUMENT_HEIGHT < MAX_GAME_HEIGHT) {
 			it.height = DOCUMENT_HEIGHT;
 		}
 		it.width -= PADDING;

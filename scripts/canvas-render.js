@@ -3,6 +3,7 @@
 	const DOCUMENT_WIDTH = document.documentElement.clientWidth;
 	const DOCUMENT_HEIGHT = document.documentElement.clientHeight;
 	const PADDING = 20;
+	const BLOCK_SIZE = 5;
 	const BASIC_GAME_SIZE = 300;
 	const MAX_GAME_WIDTH = 1500;
 	const MAX_GAME_HEIGHT = 800;
@@ -18,6 +19,10 @@
 		}
 		if (DOCUMENT_HEIGHT > MIN_GAME_HEIGHT && DOCUMENT_HEIGHT < MAX_GAME_HEIGHT) {
 			it.height = DOCUMENT_HEIGHT;
+		}
+		if (it.width % BLOCK_SIZE || it.height % BLOCK_SIZE) {
+			it.width -= it.width % BLOCK_SIZE;
+			it.height -= it.height % BLOCK_SIZE;
 		}
 		it.width -= PADDING;
 		it.height -= PADDING;

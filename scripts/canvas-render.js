@@ -3,7 +3,7 @@
 	const DOCUMENT_WIDTH = document.documentElement.clientWidth;
 	const DOCUMENT_HEIGHT = document.documentElement.clientHeight;
 	const PADDING = 20;
-	const BLOCK_SIZE = 5;
+	const BLOCK_SIZE = window.gameSetup.blockSize;
 	const BASIC_GAME_SIZE = 300;
 	const MAX_GAME_WIDTH = 1500;
 	const MAX_GAME_HEIGHT = 800;

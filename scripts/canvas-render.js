@@ -10,6 +10,8 @@
 	const MIN_GAME_WIDTH = 300;
 	const MIN_GAME_HEIGHT = 300;
 	const CANVAS_ELEMENTS = document.querySelectorAll('.game canvas');
+	const CANVAS_FRONT_ELEMENT = document.querySelector('.game-front');
+	const CANVAS_BACK_ELEMENT = document.querySelector('.game-background');
 
 	[].forEach.call(CANVAS_ELEMENTS, function (it) {
 		it.width = BASIC_GAME_SIZE;
@@ -28,4 +30,9 @@
 		it.height -= PADDING;
 		it.style = 'border: 1px solid black;';
 	});
+	window.renderCanvas = {
+		'blockSize': BLOCK_SIZE,
+		'canvasBack': CANVAS_BACK_ELEMENT,
+		'canvasFront': CANVAS_FRONT_ELEMENT
+	};
 })();

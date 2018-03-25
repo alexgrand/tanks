@@ -2,7 +2,6 @@
 (function () {
 	const DOCUMENT_WIDTH = document.documentElement.clientWidth;
 	const DOCUMENT_HEIGHT = document.documentElement.clientHeight;
-	const PADDING = 20;
 	const BLOCK_SIZE = window.gameSetup.blockSize;
 	const BASIC_GAME_SIZE = 300;
 	const MAX_GAME_WIDTH = 1500;
@@ -26,9 +25,8 @@
 			it.width -= it.width % BLOCK_SIZE;
 			it.height -= it.height % BLOCK_SIZE;
 		}
-		it.width -= PADDING;
-		it.height -= PADDING;
-		it.style = 'border: 1px solid black;';
+		it.width -= BLOCK_SIZE;
+		it.height -= BLOCK_SIZE;
 	});
 	window.renderCanvas = {
 		'blockSize': BLOCK_SIZE,

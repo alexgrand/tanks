@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 	window.gameSetup = {
-		'blockSize': 5,
+		'blockSize': 15,
 		'bricksAmount': 50,
 		'gameFinished': false,
 		'npcTanksAnount': 2,

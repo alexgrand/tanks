@@ -7,7 +7,8 @@
 	const blockArea = block * block;
 	const blocksAmount = gameArea / blockArea;
 	const rowSize = gameWidth / block;
-	const lifeSize = new Map([['border', 0]]);
+	const blockTypes = new Map();
+	const gameElements = new Map();
 	const allObstacles = [];
 
 	class Obstacle {
@@ -46,18 +47,47 @@
 
 	class Border extends Obstacle {
 		constructor (index) {
-			super('border', false, lifeSize.get('border'));
+			super('border', gameElements.get('border').destroyable);
 			this.index = index;
 			this.findCoords();
 		}
 	}
 
-	const blockTypes = {'number1': [0, 1, (rowSize + 2), (rowSize + 3)]};
+	const createGameElementsMap = function () {
+		const names = ['border', 'brick', 'wall', 'tree', 'npc', 'player'];
+
+		names.forEach((name) => {
+			if (name === 'npc' || name === 'player' || name === 'brick') {
+				gameElements.set(name, {'destroyable': true, 'life': 3});
+			}
+			gameElements.set(name, {'destroyable': false});
+		});
+	};
+
+
+
+
+
+	const createBlockTypesMap = function (...args) {
+		// blockTypes.set() 
+		// сделать поиск по сету типов блоков, выбрать последний номер. добавить массив следующих
+	};
+
+
+
+
+
+
 	const getRandomNumber = function (max, min) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
+	const createBlock = function (index, name) {
+		return new Obstacle(name);
+	};
+	const createObstacle = function (index, array) {
+	};
 
-	const checkIsWall = function (index) {
+	const checkIfWall = function (index) {
 		let isWall = false;
 
 		if (index >= 0 && index <= rowSize) {
@@ -75,9 +105,10 @@
 
 	const ctx = window.renderCanvas.canvasFront.getContext('2d');
 
+	createGameElementsMap();
 	for (let i = 0; i < blocksAmount; i++) {
 		if (!allObstacles[i]) {
-			if (checkIsWall(i)) {
+			if (checkIfWall(i)) {
 				const newWall = new Border(i);
 
 				allObstacles[i] = newWall;

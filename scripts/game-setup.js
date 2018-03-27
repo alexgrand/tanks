@@ -2,10 +2,12 @@
 (function () {
 	window.gameSetup = {
 		'blockSize': 15,
-		'bricksAmount': 50,
 		'gameFinished': false,
-		'npcTanksAnount': 2,
-		'treesAmount': 10,
-		'wallsAmount': 10
+		'amount': {
+			'brick': 0.5,
+			'npcTank': 2,
+			'tree': 0.1,
+			'wall': 0.1
+		}
 	};
 })();

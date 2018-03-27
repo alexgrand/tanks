@@ -7,12 +7,7 @@
 	const blockArea = block * block;
 	const blocksAmount = gameArea / blockArea;
 	const rowSize = gameWidth / block;
-	const lifeSize = new Map([
-	[
-		'wall',
-		0
-		]
-	]);
+	const lifeSize = new Map([['border', 0]]);
 	const allObstacles = [];
 
 	class Obstacle {
@@ -49,14 +44,20 @@
 		}
 	}
 
-	class Wall extends Obstacle {
+	class Border extends Obstacle {
 		constructor (index) {
-			super('wall', false, lifeSize.get('wall'));
+			super('border', false, lifeSize.get('border'));
 			this.index = index;
+			this.findCoords();
 		}
 	}
 
-	const checkIsWall = (index) => {
+	const blockTypes = {'number1': [0, 1, (rowSize + 2), (rowSize + 3)]};
+	const getRandomNumber = function (max, min) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+	const checkIsWall = function (index) {
 		let isWall = false;
 
 		if (index >= 0 && index <= rowSize) {
@@ -77,9 +78,8 @@
 	for (let i = 0; i < blocksAmount; i++) {
 		if (!allObstacles[i]) {
 			if (checkIsWall(i)) {
-				const newWall = new Wall(i);
+				const newWall = new Border(i);
 
-				newWall.findCoords();
 				allObstacles[i] = newWall;
 				ctx.fillRect(newWall.posX, newWall.posY, block, block);
 			}

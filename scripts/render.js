@@ -4,7 +4,14 @@
 
 	window.data.allObs.forEach((it) => {
 		if (it.name === 'border') {
-			ctxBack.fillRect(it.posX, it.posY, window.renderCanvas.blockSize, window.renderCanvas.blockSize);
+			ctxBack.fillStyle = 'black';
+		} else if (it.name === 'tree') {
+			ctxBack.fillStyle = 'green';
+		} else if (it.name === 'wall') {
+			ctxBack.fillStyle = 'gray';
+		} else {
+			ctxBack.fillStyle = 'red';
 		}
+		ctxBack.fillRect(it.posX, it.posY, window.renderCanvas.blockSize, window.renderCanvas.blockSize);
 	});
 })();

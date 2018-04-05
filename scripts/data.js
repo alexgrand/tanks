@@ -76,9 +76,10 @@
 	};
 
 	const setBlockShapesMap = () => {
-		BLOCK_SHAPES.set('shape1', [1, ROW_SIZE, ROW_SIZE + 1]);
-		BLOCK_SHAPES.set('shape2', [1, 2, 3]);
-		BLOCK_SHAPES.set('shape3', [ROW_SIZE, ROW_SIZE * 2, ROW_SIZE * 3]);
+		// BLOCK_SHAPES.set('shape1', [1, 2, 3, ROW_SIZE, ROW_SIZE + 1]);
+		const shape1 = [1, 2, 3, ROW_SIZE, ROW_SIZE + 1, ROW_SIZE + 2, ROW_SIZE + 3, ROW_SIZE * 2, ROW_SIZE * 2 + 1, ROW_SIZE * 2 + 2, ROW_SIZE * 2 + 3];
+
+		BLOCK_SHAPES.set('shape1', shape1);
 	};
 	const createBlock = (name, index) => {
 		ALL_OBSTALES[index] = new Obstacle(name, index);
@@ -102,18 +103,18 @@
 		}
 	};
 	const createAllObs = function () {
-		const blocks = window.gameSetup.amount;
+		const totalBlocksAmount = window.gameSetup.amount;
 
-		for (const element in blocks) {
+		for (const element in totalBlocksAmount) {
 			let amount = Math.floor(window.gameSetup.amount[element] * BLOCKS_AMOUNT);
 
-			while (amount) {
+			while (amount > 0) {
 				const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
-				const randomShape = BLOCK_SHAPES.get('shape1');
+				const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
 
 				if (!ALL_OBSTALES[randomIndex]) {
 					createBlockShape(element, randomIndex, randomShape);
-					amount--;
+					amount -= randomShape.length;
 				}
 			}
 		}

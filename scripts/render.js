@@ -13,5 +13,7 @@
 			ctxBack.fillStyle = 'red';
 		}
 		ctxBack.fillRect(it.posX, it.posY, window.renderCanvas.blockSize, window.renderCanvas.blockSize);
+		ctxBack.strokeStyle = 'black';
+		ctxBack.strokeRect(it.posX, it.posY, window.renderCanvas.blockSize, window.renderCanvas.blockSize);
 	});
 })();

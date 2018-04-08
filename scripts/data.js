@@ -74,12 +74,20 @@
 			GAME_ELEMENTS.set(name, {'destroyable': false});
 		});
 	};
+	const setShape = (xLine, yLine) => {
+		const shapeSize = xLine * yLine;
+		const shapeIndexes = [];
 
+		for (let i = 1; i < shapeSize; i++) {
+			shapeIndexes.push(ROW_SIZE * Math.floor(i / xLine) + Math.floor(i % xLine));
+		}
+
+		return shapeIndexes;
+	};
 	const setBlockShapesMap = () => {
-		// BLOCK_SHAPES.set('shape1', [1, 2, 3, ROW_SIZE, ROW_SIZE + 1]);
-		const shape1 = [1, 2, 3, ROW_SIZE, ROW_SIZE + 1, ROW_SIZE + 2, ROW_SIZE + 3, ROW_SIZE * 2, ROW_SIZE * 2 + 1, ROW_SIZE * 2 + 2, ROW_SIZE * 2 + 3];
-
-		BLOCK_SHAPES.set('shape1', shape1);
+		BLOCK_SHAPES.set('shape1', setShape(4, 3));
+		BLOCK_SHAPES.set('shape2', setShape(3, 4));
+		BLOCK_SHAPES.set('shape3', setShape(4, 4));
 	};
 	const createBlock = (name, index) => {
 		ALL_OBSTALES[index] = new Obstacle(name, index);
@@ -105,6 +113,8 @@
 	const createAllObs = function () {
 		const totalBlocksAmount = window.gameSetup.amount;
 
+		createMapBorders();
+
 		for (const element in totalBlocksAmount) {
 			let amount = Math.floor(window.gameSetup.amount[element] * BLOCKS_AMOUNT);
 
@@ -122,7 +132,6 @@
 
 	setGameElementsMap();
 	setBlockShapesMap();
-	createMapBorders();
 	createAllObs();
 
 	window.data = {'allObs': ALL_OBSTALES};

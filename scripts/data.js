@@ -70,8 +70,9 @@
 		names.forEach((name) => {
 			if (name === 'npc' || name === 'player' || name === 'brick') {
 				GAME_ELEMENTS.set(name, {'destroyable': true, 'life': 3});
+			} else {
+				GAME_ELEMENTS.set(name, {'destroyable': false});
 			}
-			GAME_ELEMENTS.set(name, {'destroyable': false});
 		});
 	};
 	const setShape = (xLine, yLine) => {
@@ -113,10 +114,12 @@
 	const createAllObs = function () {
 		const totalBlocksAmount = window.gameSetup.amount;
 
+		setGameElementsMap();
+		setBlockShapesMap();
 		createMapBorders();
 
 		for (const element in totalBlocksAmount) {
-			let amount = Math.floor(window.gameSetup.amount[element] * BLOCKS_AMOUNT);
+			let amount = Math.floor(totalBlocksAmount[element] * BLOCKS_AMOUNT);
 
 			while (amount > 0) {
 				const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
@@ -130,9 +133,9 @@
 		}
 	};
 
-	setGameElementsMap();
-	setBlockShapesMap();
 	createAllObs();
-
-	window.data = {'allObs': ALL_OBSTALES};
+	window.data = {
+	'allObs': ALL_OBSTALES,
+	Obstacle
+	};
 })();

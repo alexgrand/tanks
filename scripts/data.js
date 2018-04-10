@@ -48,6 +48,15 @@
 		}
 	}
 
+	class Tank extends window.data.Obstacle {
+		constructor (name, index) {
+			super(name, index);
+			this.direction = 'top';
+			this.velocity = 1;
+			this.firepower = 1;
+		}
+	}
+
 	const getRandomNumber = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 	const checkIfBorder = (index) => {
 		let isBorder = false;
@@ -101,6 +110,10 @@
 				createBlock(name, (index + it));
 			}
 		});
+	};
+	const createTank = function (name, index) {
+		ALL_OBSTALES[index] = new Tank(name, index);
+		ALL_OBSTALES[index].findCoords();
 	};
 	const createMapBorders = () => {
 		for (let i = 0; i < BLOCKS_AMOUNT; i++) {

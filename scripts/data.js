@@ -48,7 +48,7 @@
 		}
 	}
 
-	class Tank extends window.data.Obstacle {
+	class Tank extends Obstacle {
 		constructor (name, index) {
 			super(name, index);
 			this.direction = 'top';

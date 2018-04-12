@@ -16,8 +16,8 @@
 			this.name = name;
 			this.index = index;
 			this.destroyable = GAME_ELEMENTS.get(name).destroyable;
-			if (GAME_ELEMENTS.get(name).life) {
-				this.life = GAME_ELEMENTS.get(name).life;
+			if (this.destroyable) {
+				this.life = 3;
 			}
 		}
 
@@ -51,9 +51,10 @@
 	class Tank extends Obstacle {
 		constructor (name, index) {
 			super(name, index);
+			this.canMove = true;
 			this.direction = 'top';
-			this.velocity = 1;
 			this.firepower = 1;
+			this.velocity = 1;
 		}
 	}
 
@@ -61,7 +62,7 @@
 	const checkIfBorder = (index) => {
 		let isBorder = false;
 
-		if (index >= 0 && index <= ROW_SIZE) {
+		if (index <= ROW_SIZE) {
 			isBorder = true;
 		} else if (index % ROW_SIZE === 0) {
 			isBorder = true;
@@ -78,7 +79,7 @@
 
 		names.forEach((name) => {
 			if (name === 'npc' || name === 'player' || name === 'brick') {
-				GAME_ELEMENTS.set(name, {'destroyable': true, 'life': 3});
+				GAME_ELEMENTS.set(name, {'destroyable': true});
 			} else {
 				GAME_ELEMENTS.set(name, {'destroyable': false});
 			}
@@ -99,27 +100,23 @@
 		BLOCK_SHAPES.set('shape2', setShape(3, 4));
 		BLOCK_SHAPES.set('shape3', setShape(4, 4));
 	};
-	const createBlock = (name, index) => {
-		ALL_OBSTALES[index] = new Obstacle(name, index);
+	const createBlock = (name, index, ObjClass) => {
+		ALL_OBSTALES[index] = new ObjClass(name, index);
 		ALL_OBSTALES[index].findCoords();
 	};
 	const createBlockShape = (name, index, shape) => {
-		createBlock(name, index);
+		createBlock(name, index, Obstacle);
 		shape.forEach((it) => {
 			if (!ALL_OBSTALES[index + it]) {
-				createBlock(name, (index + it));
+				createBlock(name, (index + it), Obstacle);
 			}
 		});
-	};
-	const createTank = function (name, index) {
-		ALL_OBSTALES[index] = new Tank(name, index);
-		ALL_OBSTALES[index].findCoords();
 	};
 	const createMapBorders = () => {
 		for (let i = 0; i < BLOCKS_AMOUNT; i++) {
 			if (!ALL_OBSTALES[i]) {
 				if (checkIfBorder(i)) {
-					createBlock('border', i);
+					createBlock('border', i, Obstacle);
 				}
 			}
 		}
@@ -147,8 +144,5 @@
 	};
 
 	createAllObs();
-	window.data = {
-	'allObs': ALL_OBSTALES,
-	Obstacle
-	};
+	window.data = {'allObs': ALL_OBSTALES};
 })();

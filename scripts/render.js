@@ -4,7 +4,7 @@
 	const ctxFront = window.renderCanvas.canvasFront.getContext('2d');
 	const {blockSize} = window.renderCanvas;
 
-	window.data.allObs.forEach((it) => {
+	window.data.ALL_OBSTALES.forEach((it) => {
 		if (it.name === 'border') {
 			ctxBack.fillStyle = 'black';
 		} else if (it.name === 'tree') {
@@ -19,6 +19,9 @@
 		ctxBack.strokeRect(it.posX, it.posY, blockSize, blockSize);
 		if (it.name.indexOf('player') >= 0) {
 			ctxFront.fillStyle = 'blue';
+			ctxFront.fillRect(it.posX, it.posY, blockSize, blockSize);
+		} else if (it.name.indexOf('npc') >= 0) {
+			ctxFront.fillStyle = 'orange';
 			ctxFront.fillRect(it.posX, it.posY, blockSize, blockSize);
 		}
 

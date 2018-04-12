@@ -10,6 +10,7 @@
 	const GAME_ELEMENTS = new Map();
 	const BLOCK_SHAPES = new Map();
 	const ALL_OBSTALES = [];
+	const {'gameSetup': GAME_SETUP} = window;
 
 	class Obstacle {
 		constructor (name, index = '0') {
@@ -55,35 +56,23 @@
 			this.direction = 'top';
 			this.firepower = 1;
 			this.velocity = 1;
+			this.id = 0;
 		}
 	}
 
 	const getRandomNumber = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 	const checkIfBorder = (index) => {
-		let isBorder = false;
+		const topBorder = index <= ROW_SIZE;
+		const leftBorder = index % ROW_SIZE === 0;
+		const rightBorder = index % ROW_SIZE === ROW_SIZE - 1;
+		const bottomBorder = index >= BLOCKS_AMOUNT - ROW_SIZE;
 
-		if (index <= ROW_SIZE) {
-			isBorder = true;
-		} else if (index % ROW_SIZE === 0) {
-			isBorder = true;
-		} else if (index % ROW_SIZE === ROW_SIZE - 1) {
-			isBorder = true;
-		} else if (index >= BLOCKS_AMOUNT - ROW_SIZE) {
-			isBorder = true;
-		}
-
-		return isBorder;
+		return topBorder || leftBorder || rightBorder || bottomBorder;
 	};
 	const setGameElementsMap = () => {
-		const names = ['border', 'brick', 'wall', 'tree', 'npc', 'player'];
-
-		names.forEach((name) => {
-			if (name === 'npc' || name === 'player' || name === 'brick') {
-				GAME_ELEMENTS.set(name, {'destroyable': true});
-			} else {
-				GAME_ELEMENTS.set(name, {'destroyable': false});
-			}
-		});
+		for (const blockName in GAME_SETUP.blocks) {
+			GAME_ELEMENTS.set(blockName, {'destroyable': 'npcplayerbrick'.indexOf(blockName) >= 0});
+		}
 	};
 	const setShape = (xLine, yLine) => {
 		const shapeSize = xLine * yLine;
@@ -112,37 +101,54 @@
 			}
 		});
 	};
-	const createMapBorders = () => {
+	const createBorders = () => {
 		for (let i = 0; i < BLOCKS_AMOUNT; i++) {
-			if (!ALL_OBSTALES[i]) {
-				if (checkIfBorder(i)) {
-					createBlock('border', i, Obstacle);
-				}
+			if (!ALL_OBSTALES[i] && checkIfBorder(i)) {
+				createBlock('border', i, Obstacle);
+			}
+		}
+	};
+	const createTanks = (tankType) => {
+		let tanksAmount = GAME_SETUP.blocks[tankType];
+		let tankId = 1;
+
+		while (tanksAmount > 0) {
+			const randomIndex = getRandomNumber(BLOCKS_AMOUNT, ROW_SIZE);
+
+			if (!ALL_OBSTALES[randomIndex]) {
+				createBlock(tankType, randomIndex, Tank);
+				ALL_OBSTALES[randomIndex].id = tankId;
+				tankId++;
+				tanksAmount--;
 			}
 		}
 	};
 	const createAllObs = function () {
-		const totalBlocksAmount = window.gameSetup.amount;
-
 		setGameElementsMap();
 		setBlockShapesMap();
-		createMapBorders();
+		createBorders();
+
+		const totalBlocksAmount = GAME_SETUP.blocks;
 
 		for (const element in totalBlocksAmount) {
-			let amount = Math.floor(totalBlocksAmount[element] * BLOCKS_AMOUNT);
+			if (element !== 'npc' && element !== 'player') {
+				let amount = Math.floor(totalBlocksAmount[element] * BLOCKS_AMOUNT);
 
-			while (amount > 0) {
-				const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
-				const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
+				while (amount > 0) {
+					const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
+					const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
 
-				if (!ALL_OBSTALES[randomIndex]) {
-					createBlockShape(element, randomIndex, randomShape);
-					amount -= randomShape.length;
+					if (!ALL_OBSTALES[randomIndex]) {
+						createBlockShape(element, randomIndex, randomShape);
+						amount -= randomShape.length;
+					}
 				}
 			}
 		}
+		createTanks('player');
+		createTanks('npc');
 	};
 
 	createAllObs();
-	window.data = {'allObs': ALL_OBSTALES};
+	window.data = {ALL_OBSTALES};
 })();

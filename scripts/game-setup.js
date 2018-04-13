@@ -8,8 +8,8 @@
 			'tree': 0.05,
 			'wall': 0.05,
 			'border': 0,
-			'player': 1,
-			'npc': 3
+			'npc': 3,
+			'player': 1
 		}
 	};
 })();

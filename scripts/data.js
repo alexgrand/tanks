@@ -61,14 +61,6 @@
 	}
 
 	const getRandomNumber = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
-	const checkIfBorder = (index) => {
-		const topBorder = index <= ROW_SIZE;
-		const leftBorder = index % ROW_SIZE === 0;
-		const rightBorder = index % ROW_SIZE === ROW_SIZE - 1;
-		const bottomBorder = index >= BLOCKS_AMOUNT - ROW_SIZE;
-
-		return topBorder || leftBorder || rightBorder || bottomBorder;
-	};
 	const setGameElementsMap = () => {
 		for (const blockName in GAME_SETUP.blocks) {
 			GAME_ELEMENTS.set(blockName, {'destroyable': 'npcplayerbrick'.indexOf(blockName) >= 0});
@@ -101,6 +93,14 @@
 			}
 		});
 	};
+	const checkIfBorder = (index) => {
+		const topBorder = index <= ROW_SIZE;
+		const leftBorder = index % ROW_SIZE === 0;
+		const rightBorder = index % ROW_SIZE === ROW_SIZE - 1;
+		const bottomBorder = index >= BLOCKS_AMOUNT - ROW_SIZE;
+
+		return topBorder || leftBorder || rightBorder || bottomBorder;
+	};
 	const createBorders = () => {
 		for (let i = 0; i < BLOCKS_AMOUNT; i++) {
 			if (!ALL_OBSTALES[i] && checkIfBorder(i)) {
@@ -108,45 +108,41 @@
 			}
 		}
 	};
-	const createTanks = (tankType) => {
-		let tanksAmount = GAME_SETUP.blocks[tankType];
+	const createObstacle = (element, blocks) => {
+		let amount = blocks[element];
 		let tankId = 1;
 
-		while (tanksAmount > 0) {
-			const randomIndex = getRandomNumber(BLOCKS_AMOUNT, ROW_SIZE);
+		if (element !== 'npc' && element !== 'player') {
+			amount *= BLOCKS_AMOUNT;
+		}
+
+		while (Math.floor(amount) > 0) {
+			const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
 
 			if (!ALL_OBSTALES[randomIndex]) {
-				createBlock(tankType, randomIndex, Tank);
-				ALL_OBSTALES[randomIndex].id = tankId;
-				tankId++;
-				tanksAmount--;
-			}
-		}
-	};
-	const createAllObs = function () {
-		setGameElementsMap();
-		setBlockShapesMap();
-		createBorders();
-
-		const totalBlocksAmount = GAME_SETUP.blocks;
-
-		for (const element in totalBlocksAmount) {
-			if (element !== 'npc' && element !== 'player') {
-				let amount = Math.floor(totalBlocksAmount[element] * BLOCKS_AMOUNT);
-
-				while (amount > 0) {
-					const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
+				if (element !== 'npc' && element !== 'player') {
 					const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
 
-					if (!ALL_OBSTALES[randomIndex]) {
-						createBlockShape(element, randomIndex, randomShape);
-						amount -= randomShape.length;
-					}
+					createBlockShape(element, randomIndex, randomShape);
+					amount -= randomShape.length;
+				} else {
+					createBlock(element, randomIndex, Tank);
+					ALL_OBSTALES[randomIndex].id = tankId;
+					tankId++;
+					amount--;
 				}
 			}
 		}
-		createTanks('player');
-		createTanks('npc');
+	};
+	const createAllObs = () => {
+		const {blocks} = GAME_SETUP;
+
+		setGameElementsMap();
+		setBlockShapesMap();
+		createBorders();
+		for (const element in blocks) {
+			createObstacle(element, blocks);
+		}
 	};
 
 	createAllObs();

@@ -13,4 +13,4 @@
 
 		console.log(posX, posY, 'index = ' + index);
 	});
-})(window.exports);
+})(this.exports);

@@ -33,4 +33,4 @@
 		'canvasBack': CANVAS_BACK_ELEMENT,
 		'canvasFront': CANVAS_FRONT_ELEMENT
 	};
-})(window.exports);
+})(this.exports);

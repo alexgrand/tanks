@@ -161,4 +161,4 @@
 
 	createAllObs();
 	exports.data = {ALL_OBSTACLES};
-})(window.exports);
+})(this.exports);

@@ -1,9 +1,9 @@
 'use strict';
 (function () {
-	const {renderCanvas} = window;
+	const {renderCanvas} = window.exports;
 	const {'width': GAME_WIDTH, 'height': GAME_HEIGHT} = renderCanvas.canvasBack;
 	const {'blockSize': BLOCK} = renderCanvas;
-	const {'gameSetup': GAME_SETUP} = window;
+	const {'gameSetup': GAME_SETUP} = window.exports;
 	const GAME_AREA = GAME_WIDTH * GAME_HEIGHT;
 	const BLOCKS_AMOUNT = GAME_AREA / (BLOCK * BLOCK);
 	const ROW_SIZE = GAME_WIDTH / BLOCK;
@@ -154,5 +154,5 @@
 	};
 
 	createAllObs();
-	window.data = {ALL_OBSTACLES};
+	window.exports.data = {ALL_OBSTACLES};
 })();

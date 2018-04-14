@@ -1,10 +1,12 @@
 'use strict';
 (function () {
-	const ctxBack = window.renderCanvas.canvasBack.getContext('2d');
-	const ctxFront = window.renderCanvas.canvasFront.getContext('2d');
-	const {blockSize} = window.renderCanvas;
+	const {'renderCanvas': RENDER_CANVAS} = window.exports;
+	const {'data': DATA} = window.exports;
+	const {'blockSize': BLOCK_SIZE} = RENDER_CANVAS;
+	const ctxBack = RENDER_CANVAS.canvasBack.getContext('2d');
+	const ctxFront = RENDER_CANVAS.canvasFront.getContext('2d');
 
-	window.data.ALL_OBSTACLES.forEach((it) => {
+	DATA.ALL_OBSTACLES.forEach((it) => {
 		if (it.name === 'border') {
 			ctxBack.fillStyle = 'black';
 		} else if (it.name === 'tree') {
@@ -14,15 +16,15 @@
 		} else {
 			ctxBack.fillStyle = 'red';
 		}
-		ctxBack.fillRect(it.posX, it.posY, blockSize, blockSize);
+		ctxBack.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
 		ctxBack.strokeStyle = 'black';
-		ctxBack.strokeRect(it.posX, it.posY, blockSize, blockSize);
+		ctxBack.strokeRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
 		if (it.name.indexOf('player') >= 0) {
 			ctxFront.fillStyle = 'blue';
-			ctxFront.fillRect(it.posX, it.posY, blockSize, blockSize);
+			ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
 		} else if (it.name.indexOf('npc') >= 0) {
 			ctxFront.fillStyle = 'orange';
-			ctxFront.fillRect(it.posX, it.posY, blockSize, blockSize);
+			ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
 		}
 
 	});

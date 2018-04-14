@@ -1,6 +1,6 @@
 'use strict';
-(function () {
-	window.exports.gameSetup = {
+(function (exports) {
+	exports.gameSetup = {
 		'blockSize': 20,
 		'gameFinished': false,
 		'blocks': {
@@ -12,4 +12,4 @@
 			'player': 1
 		}
 	};
-})();
+})(window.exports);

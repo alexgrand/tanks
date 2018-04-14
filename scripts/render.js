@@ -1,7 +1,7 @@
 'use strict';
-(function () {
-	const {'renderCanvas': RENDER_CANVAS} = window.exports;
-	const {'data': DATA} = window.exports;
+(function (exports) {
+	const {'renderCanvas': RENDER_CANVAS} = exports;
+	const {'data': DATA} = exports;
 	const {'blockSize': BLOCK_SIZE} = RENDER_CANVAS;
 	const ctxBack = RENDER_CANVAS.canvasBack.getContext('2d');
 	const ctxFront = RENDER_CANVAS.canvasFront.getContext('2d');
@@ -16,16 +16,17 @@
 		} else {
 			ctxBack.fillStyle = 'red';
 		}
-		ctxBack.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-		ctxBack.strokeStyle = 'black';
-		ctxBack.strokeRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-		if (it.name.indexOf('player') >= 0) {
-			ctxFront.fillStyle = 'blue';
-			ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-		} else if (it.name.indexOf('npc') >= 0) {
-			ctxFront.fillStyle = 'orange';
-			ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
+		if (it !== DATA.ALL_OBSTACLES[DATA.ALL_OBSTACLES.length - 1]) {
+			ctxBack.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
+			ctxBack.strokeStyle = 'black';
+			ctxBack.strokeRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
+			if (it.name.indexOf('player') >= 0) {
+				ctxFront.fillStyle = 'blue';
+				ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
+			} else if (it.name.indexOf('npc') >= 0) {
+				ctxFront.fillStyle = 'orange';
+				ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
+			}
 		}
-
 	});
-})();
+})(window.exports);

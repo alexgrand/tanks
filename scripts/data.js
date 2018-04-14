@@ -1,16 +1,15 @@
 'use strict';
 (function () {
-	const GAME_WIDTH = window.renderCanvas.canvasBack.width;
-	const GAME_HEIGHT = window.renderCanvas.canvasBack.height;
-	const BLOCK = window.renderCanvas.blockSize;
+	const {renderCanvas} = window;
+	const {'width': GAME_WIDTH, 'height': GAME_HEIGHT} = renderCanvas.canvasBack;
+	const {'blockSize': BLOCK} = renderCanvas;
+	const {'gameSetup': GAME_SETUP} = window;
 	const GAME_AREA = GAME_WIDTH * GAME_HEIGHT;
-	const BLOCK_AREA = BLOCK * BLOCK;
-	const BLOCKS_AMOUNT = GAME_AREA / BLOCK_AREA;
+	const BLOCKS_AMOUNT = GAME_AREA / (BLOCK * BLOCK);
 	const ROW_SIZE = GAME_WIDTH / BLOCK;
 	const GAME_ELEMENTS = new Map();
 	const BLOCK_SHAPES = new Map();
-	const ALL_OBSTALES = [];
-	const {'gameSetup': GAME_SETUP} = window;
+	const ALL_OBSTACLES = [];
 
 	class Obstacle {
 		constructor (name, index = '0') {
@@ -22,23 +21,12 @@
 			}
 		}
 
-		findIndex () {
-			this.index = Math.floor((this.posX + this.posY * ROW_SIZE) / BLOCK);
-
-			return this.index;
-		}
-
 		findCoords () {
 			this.posX = (this.index % ROW_SIZE) * BLOCK;
 			if (this.index < ROW_SIZE) {
 				this.posX = this.index * BLOCK;
 			}
 			this.posY = (this.index * BLOCK - this.posX) / ROW_SIZE;
-
-			return {
-				'posX': this.posX,
-				'posY': this.posY
-			};
 		}
 
 		findSides () {
@@ -57,6 +45,26 @@
 			this.firepower = 1;
 			this.velocity = 1;
 			this.id = 0;
+			this.move = {
+				left () {
+					this.posX -= this.velocity;
+				},
+				right () {
+					this.posX += this.velocity;
+				},
+				top () {
+					this.posY -= this.velocity;
+				},
+				bottom () {
+					this.posY += this.velocity;
+				}
+			};
+		}
+
+		findIndex () {
+			this.index = Math.floor((this.posX + this.posY * ROW_SIZE) / BLOCK);
+
+			return this.index;
 		}
 	}
 
@@ -82,13 +90,13 @@
 		BLOCK_SHAPES.set('shape3', setShape(4, 4));
 	};
 	const createBlock = (name, index, ObjClass) => {
-		ALL_OBSTALES[index] = new ObjClass(name, index);
-		ALL_OBSTALES[index].findCoords();
+		ALL_OBSTACLES[index] = new ObjClass(name, index);
+		ALL_OBSTACLES[index].findCoords();
 	};
 	const createBlockShape = (name, index, shape) => {
 		createBlock(name, index, Obstacle);
 		shape.forEach((it) => {
-			if (!ALL_OBSTALES[index + it]) {
+			if (!ALL_OBSTACLES[index + it]) {
 				createBlock(name, (index + it), Obstacle);
 			}
 		});
@@ -103,7 +111,7 @@
 	};
 	const createBorders = () => {
 		for (let i = 0; i < BLOCKS_AMOUNT; i++) {
-			if (!ALL_OBSTALES[i] && checkIfBorder(i)) {
+			if (!ALL_OBSTACLES[i] && checkIfBorder(i)) {
 				createBlock('border', i, Obstacle);
 			}
 		}
@@ -119,7 +127,7 @@
 		while (Math.floor(amount) > 0) {
 			const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
 
-			if (!ALL_OBSTALES[randomIndex]) {
+			if (!ALL_OBSTACLES[randomIndex]) {
 				if (element !== 'npc' && element !== 'player') {
 					const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
 
@@ -127,7 +135,7 @@
 					amount -= randomShape.length;
 				} else {
 					createBlock(element, randomIndex, Tank);
-					ALL_OBSTALES[randomIndex].id = tankId;
+					ALL_OBSTACLES[randomIndex].id = tankId;
 					tankId++;
 					amount--;
 				}
@@ -146,5 +154,5 @@
 	};
 
 	createAllObs();
-	window.data = {ALL_OBSTALES};
+	window.data = {ALL_OBSTACLES};
 })();

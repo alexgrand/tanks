@@ -4,7 +4,7 @@
 	const ctxFront = window.renderCanvas.canvasFront.getContext('2d');
 	const {blockSize} = window.renderCanvas;
 
-	window.data.ALL_OBSTALES.forEach((it) => {
+	window.data.ALL_OBSTACLES.forEach((it) => {
 		if (it.name === 'border') {
 			ctxBack.fillStyle = 'black';
 		} else if (it.name === 'tree') {

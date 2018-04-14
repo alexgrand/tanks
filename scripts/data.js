@@ -1,15 +1,16 @@
 'use strict';
-(function () {
-	const {renderCanvas} = window.exports;
+(function (exports) {
+	const {renderCanvas} = exports;
 	const {'width': GAME_WIDTH, 'height': GAME_HEIGHT} = renderCanvas.canvasBack;
 	const {'blockSize': BLOCK} = renderCanvas;
-	const {'gameSetup': GAME_SETUP} = window.exports;
+	const {'gameSetup': GAME_SETUP} = exports;
 	const GAME_AREA = GAME_WIDTH * GAME_HEIGHT;
 	const BLOCKS_AMOUNT = GAME_AREA / (BLOCK * BLOCK);
 	const ROW_SIZE = GAME_WIDTH / BLOCK;
 	const GAME_ELEMENTS = new Map();
 	const BLOCK_SHAPES = new Map();
 	const ALL_OBSTACLES = [];
+	const ALL_TANKS = [];
 
 	class Obstacle {
 		constructor (name, index = '0') {
@@ -62,7 +63,10 @@
 		}
 
 		findIndex () {
-			this.index = Math.floor((this.posX + this.posY * ROW_SIZE) / BLOCK);
+			const posX = (Math.floor(this.posX / BLOCK)) * BLOCK;
+			const posY = (Math.floor(this.posY / BLOCK)) * BLOCK;
+
+			this.index = Math.floor((posX + posY * ROW_SIZE) / BLOCK);
 
 			return this.index;
 		}
@@ -136,6 +140,7 @@
 				} else {
 					createBlock(element, randomIndex, Tank);
 					ALL_OBSTACLES[randomIndex].id = tankId;
+					ALL_TANKS.push(ALL_OBSTACLES[randomIndex]);
 					tankId++;
 					amount--;
 				}
@@ -151,8 +156,9 @@
 		for (const element in blocks) {
 			createObstacle(element, blocks);
 		}
+		ALL_OBSTACLES.push(ALL_TANKS);
 	};
 
 	createAllObs();
-	window.exports.data = {ALL_OBSTACLES};
-})();
+	exports.data = {ALL_OBSTACLES};
+})(window.exports);

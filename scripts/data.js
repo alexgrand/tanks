@@ -10,7 +10,7 @@
 	const GAME_ELEMENTS = new Map();
 	const BLOCK_SHAPES = new Map();
 	const ALL_OBSTACLES = [];
-	const ALL_TANKS = [];
+	const ALL_TANKS = new Map();
 
 	class Obstacle {
 		constructor (name, index = '0') {
@@ -139,8 +139,10 @@
 					amount -= randomShape.length;
 				} else {
 					createBlock(element, randomIndex, Tank);
+					const tankName = element + tankId;
+
 					ALL_OBSTACLES[randomIndex].id = tankId;
-					ALL_TANKS.push(ALL_OBSTACLES[randomIndex]);
+					ALL_TANKS.set(tankName, ALL_OBSTACLES[randomIndex]);
 					tankId++;
 					amount--;
 				}
@@ -160,5 +162,5 @@
 	};
 
 	createAllObs();
-	exports.data = {ALL_OBSTACLES};
+	exports.data = {ALL_OBSTACLES, ROW_SIZE};
 })(window.exports);

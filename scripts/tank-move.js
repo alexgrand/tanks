@@ -19,6 +19,7 @@
 
 			if (DIRECTIONS.has(keyName)) {
 				PLAYER.direction = keyName;
+				PLAYER[PLAYER.direction + 'Move']();
 			}
 		}
 	};

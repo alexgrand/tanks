@@ -39,16 +39,6 @@
 				ctxBack.strokeStyle = 'black';
 				ctxBack.strokeRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
 			}
-
-			/*
-			 * If (it.name.indexOf('player') >= 0) {
-			 * 	ctxFront.fillStyle = 'blue';
-			 * 	ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-			 * } else if (it.name.indexOf('npc') >= 0) {
-			 * 	ctxFront.fillStyle = 'orange';
-			 * 	ctxFront.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-			 * }
-			 */
 		}
 	});
 

@@ -12,4 +12,4 @@
 			'player': 1
 		}
 	};
-})(this.exports = {});
+})(window.exports = {});

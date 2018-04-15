@@ -46,20 +46,22 @@
 			this.firepower = 1;
 			this.velocity = 1;
 			this.id = 0;
-			this.move = {
-				left () {
-					this.posX -= this.velocity;
-				},
-				right () {
-					this.posX += this.velocity;
-				},
-				top () {
-					this.posY -= this.velocity;
-				},
-				bottom () {
-					this.posY += this.velocity;
-				}
-			};
+		}
+
+		leftMove () {
+			this.posX -= this.velocity;
+		}
+
+		rightMove () {
+			this.posX += this.velocity;
+		}
+
+		topMove () {
+			this.posY -= this.velocity;
+		}
+
+		bottomMove () {
+			this.posY += this.velocity;
 		}
 
 		findIndex () {

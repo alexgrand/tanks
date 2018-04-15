@@ -102,7 +102,7 @@
 	const createBlockShape = (name, index, shape) => {
 		createBlock(name, index, Obstacle);
 		shape.forEach((it) => {
-			if (!ALL_OBSTACLES[index + it]) {
+			if (!ALL_OBSTACLES[index + it] && (index + it) < ALL_OBSTACLES.length) {
 				createBlock(name, (index + it), Obstacle);
 			}
 		});

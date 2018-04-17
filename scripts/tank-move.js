@@ -91,7 +91,6 @@ return canMove.index1 && canMove.index2 && canMove.index3;
 		}
 	};
 
-	PLAYER.velocity = 1;
 	document.addEventListener('keydown', onDocumentKeydown);
 
 })(window.exports);

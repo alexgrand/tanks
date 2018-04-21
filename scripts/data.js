@@ -4,6 +4,7 @@
 	const {'width': GAME_WIDTH, 'height': GAME_HEIGHT} = renderCanvas.canvasBack;
 	const {'blockSize': BLOCK} = renderCanvas;
 	const {'gameSetup': GAME_SETUP} = exports;
+	const {getRandomNumber} = exports.utils;
 	const GAME_AREA = GAME_WIDTH * GAME_HEIGHT;
 	const BLOCKS_AMOUNT = GAME_AREA / (BLOCK * BLOCK);
 	const ROW_SIZE = GAME_WIDTH / BLOCK;
@@ -74,7 +75,6 @@
 		}
 	}
 
-	const getRandomNumber = (max, min) => Math.floor(Math.random() * (max - min + 1)) + min;
 	const setGameElementsMap = () => {
 		for (const blockName in GAME_SETUP.blocks) {
 			GAME_ELEMENTS.set(blockName, {'destroyable': 'npcplayerbrick'.indexOf(blockName) >= 0});

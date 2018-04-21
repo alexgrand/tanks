@@ -9,10 +9,10 @@ module.exports = {
     },
     "rules": {
         "accessor-pairs": "error",
-        "array-bracket-newline": ["error", "never"],
+        "array-bracket-newline": "off",
         "array-bracket-spacing": ["error", "never"],
         "array-callback-return": "error",
-        "array-element-newline": ["error", {"multiline": true}],
+        "array-element-newline": "off",
         "arrow-body-style": "error",
         "arrow-parens": "error",
         "arrow-spacing": "error",

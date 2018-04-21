@@ -4,6 +4,7 @@
 	const {ROW_SIZE} = exports.data;
 	const ALL_TANKS = ALL_OBSTACLES[ALL_OBSTACLES.length - 1];
 	const PLAYER = ALL_TANKS.get('player1');
+	const {getRandomNumber} = exports.utils;
 	const KEY_CODES = new Map([
 		[37, 'left'],
 		[38, 'top'],
@@ -78,6 +79,28 @@
 			}
 		}
 	};
+	const npcTankMove = (npcTank) => {
+		const allDirections = ['left', 'right', 'top', 'bottom'];
+
+		if (npcTank.moveDistance < 0) {
+			npcTank.direction = allDirections[getRandomNumber(3, 0)];
+			npcTank.moveDistance = 200;
+		}
+		if (!checkMove(npcTank)) {
+			npcTank.direction = allDirections[getRandomNumber(3, 0)];
+		}
+
+		npcTank.moveDistance -= 1;
+		move(npcTank);
+		requestAnimationFrame(npcTankMove.bind(npcTankMove, npcTank));
+	};
+	const moveAllNpcTanks = () => {
+		ALL_TANKS.forEach((tank) => {
+			if (tank.name === 'npc') {
+				npcTankMove(tank);
+			}
+		});
+	};
 	const onDocumentKeydown = (evt) => {
 		if (KEY_CODES.has(evt.which)) {
 			const keyNum = evt.which;
@@ -91,5 +114,6 @@
 	};
 
 	document.addEventListener('keydown', onDocumentKeydown);
+	moveAllNpcTanks();
 
 })(window.exports);

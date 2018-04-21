@@ -45,8 +45,12 @@
 			this.canMove = true;
 			this.direction = 'top';
 			this.firepower = 1;
-			this.velocity = 1;
+			this.velocity = 2;
 			this.id = 0;
+			if (name === 'npc') {
+				this.velocity = 1;
+				this.moveDistance = 40;
+			}
 		}
 
 		leftMove () {

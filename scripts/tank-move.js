@@ -3,37 +3,36 @@
 	const {ALL_OBSTACLES} = exports.data;
 	const {ROW_SIZE} = exports.data;
 	const ALL_TANKS = ALL_OBSTACLES[ALL_OBSTACLES.length - 1];
-	const KEY_CODES = {
-		'37': 'left',
-		'38': 'top',
-		'39': 'right',
-		'40': 'bottom',
-		'17': 'fire'
-	};
-	const DIRECTIONS = new Set(['left', 'right', 'top', 'bottom']);
 	const PLAYER = ALL_TANKS.get('player1');
-	const DIRECTION_INDEXES = {
-		'left': {
+	const KEY_CODES = new Map([
+		[37, 'left'],
+		[38, 'top'],
+		[39, 'right'],
+		[40, 'bottom'],
+		[17, 'fire']
+	]);
+	const DIRECTIONS = new Map([
+		['left', {
 			'index1': -ROW_SIZE - 1,
 			'index2': -1,
 			'index3': ROW_SIZE - 1
-		},
-		'right': {
+		}],
+		['right', {
 			'index1': -ROW_SIZE + 1,
 			'index2': 1,
 			'index3': ROW_SIZE + 1
-		},
-		'top': {
+		}],
+		['top', {
 			'index1': -ROW_SIZE - 1,
 			'index2': -ROW_SIZE,
 			'index3': -ROW_SIZE + 1
-		},
-		'bottom': {
+		}],
+		['bottom', {
 			'index1': ROW_SIZE - 1,
 			'index2': ROW_SIZE,
 			'index3': ROW_SIZE + 1
-		}
-	};
+		}]
+	]);
 
 	const checkCollision = (tank, obs) => {
 		let cantMove = true;
@@ -54,7 +53,7 @@
 	};
 	const checkMove = (tank) => {
 		const canMove = {'index1': true, 'index2': true, 'index3': true};
-		const sideIndexes = DIRECTION_INDEXES[tank.direction];
+		const sideIndexes = DIRECTIONS.get(tank.direction);
 
 		for (const i in sideIndexes) {
 			const index = tank.index + sideIndexes[i];
@@ -65,7 +64,7 @@
 			}
 		}
 
-return canMove.index1 && canMove.index2 && canMove.index3;
+	return canMove.index1 && canMove.index2 && canMove.index3;
 	};
 	const move = (tank) => {
 		const currentIndex = tank.index;
@@ -80,11 +79,11 @@ return canMove.index1 && canMove.index2 && canMove.index3;
 		}
 	};
 	const onDocumentKeydown = (evt) => {
-		if (KEY_CODES[evt.which]) {
+		if (KEY_CODES.has(evt.which)) {
 			const keyNum = evt.which;
-			const keyName = KEY_CODES[keyNum];
+			const keyName = KEY_CODES.get(keyNum);
 
-			if (DIRECTIONS.has(keyName)) {
+			if (DIRECTIONS.get(keyName)) {
 				PLAYER.direction = keyName;
 				move(PLAYER);
 			}

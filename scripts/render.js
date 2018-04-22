@@ -8,37 +8,40 @@
 	const CANVAS_WIDTH = canvasFront.width;
 	const CANVAS_HEIGHT = canvasFront.height;
 	const ctxBack = RENDER_CANVAS.canvasBack.getContext('2d');
+	const ctxMiddle = RENDER_CANVAS.canvasMiddle.getContext('2d');
 	const ctxFront = RENDER_CANVAS.canvasFront.getContext('2d');
 
 	const loop = () => {
-		ctxFront.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+		ctxMiddle.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 		ALL_TANKS.forEach((tank) => {
-			ctxFront.fillStyle = 'orange';
+			ctxMiddle.fillStyle = 'orange';
 			if (tank.name === 'player') {
-				ctxFront.fillStyle = 'blue';
+				ctxMiddle.fillStyle = 'blue';
 			}
-			ctxFront.fillRect(tank.posX, tank.posY, BLOCK_SIZE, BLOCK_SIZE);
+			ctxMiddle.fillRect(tank.posX, tank.posY, BLOCK_SIZE, BLOCK_SIZE);
 		});
 
 		requestAnimationFrame(loop);
+	};
+	const drawBlock = (block, ctx) => {
+		ctx.fillRect(block.posX, block.posY, BLOCK_SIZE, BLOCK_SIZE);
+		ctx.strokeStyle = 'black';
+		ctx.strokeRect(block.posX, block.posY, BLOCK_SIZE, BLOCK_SIZE);
 	};
 
 	ALL_OBSTACLES.forEach((it) => {
 		if (it.name === 'border') {
 			ctxBack.fillStyle = 'black';
+			drawBlock(it, ctxBack);
 		} else if (it.name === 'tree') {
-			ctxBack.fillStyle = 'green';
+			ctxFront.fillStyle = 'green';
+			drawBlock(it, ctxFront);
 		} else if (it.name === 'wall') {
 			ctxBack.fillStyle = 'gray';
-		} else {
+			drawBlock(it, ctxBack);
+		} else if (it.name === 'brick') {
 			ctxBack.fillStyle = 'red';
-		}
-		if (it !== ALL_TANKS) {
-			if (it.name !== 'player' && it.name !== 'npc') {
-				ctxBack.fillRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-				ctxBack.strokeStyle = 'black';
-				ctxBack.strokeRect(it.posX, it.posY, BLOCK_SIZE, BLOCK_SIZE);
-			}
+			drawBlock(it, ctxBack);
 		}
 	});
 

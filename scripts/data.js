@@ -17,9 +17,13 @@
 		constructor (name, index = '0') {
 			this.name = name;
 			this.index = index;
+			this.passable = false;
 			this.destroyable = GAME_ELEMENTS.get(name).destroyable;
 			if (this.destroyable) {
 				this.life = 3;
+			}
+			if (name === 'tree') {
+				this.passable = true;
 			}
 		}
 

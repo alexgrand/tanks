@@ -10,6 +10,7 @@
 	const MIN_GAME_HEIGHT = 300;
 	const CANVAS_ELEMENTS = document.querySelectorAll('.game canvas');
 	const CANVAS_FRONT_ELEMENT = document.querySelector('.game-front');
+	const CANVAS_MIDDLE_ELEMENT = document.querySelector('.game-middle');
 	const CANVAS_BACK_ELEMENT = document.querySelector('.game-background');
 
 	[].forEach.call(CANVAS_ELEMENTS, function (it) {
@@ -31,6 +32,7 @@
 	exports.renderCanvas = {
 		'blockSize': BLOCK_SIZE,
 		'canvasBack': CANVAS_BACK_ELEMENT,
+		'canvasMiddle': CANVAS_MIDDLE_ELEMENT,
 		'canvasFront': CANVAS_FRONT_ELEMENT
 	};
 })(window.exports);

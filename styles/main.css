@@ -8,6 +8,9 @@
 .game-background {
 	z-index: 1;
 }
-.game-front {
+.game-middle {
 	z-index: 2;
+}
+.game-front {
+	z-index: 3;
 }

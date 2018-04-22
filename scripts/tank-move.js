@@ -60,7 +60,7 @@
 			const index = tank.index + sideIndexes[i];
 			const isObstacle = ALL_OBSTACLES[index];
 
-			if (isObstacle) {
+			if (isObstacle && isObstacle.name !== 'tree') {
 				canMove[i] = !checkCollision(tank, isObstacle);
 			}
 		}

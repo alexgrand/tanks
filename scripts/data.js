@@ -172,5 +172,5 @@
 	};
 
 	createAllObs();
-	exports.data = {ALL_OBSTACLES, ROW_SIZE};
+	exports.data = {ALL_OBSTACLES, ROW_SIZE, Tank};
 })(window.exports);

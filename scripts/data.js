@@ -1,7 +1,7 @@
 'use strict';
 (function (exports) {
 exports.data = {
-	createData () {
+	create () {
 		const {renderCanvas} = exports;
 		const {'width': GAME_WIDTH, 'height': GAME_HEIGHT} = renderCanvas.canvasBack;
 		const {'blockSize': BLOCK} = renderCanvas;

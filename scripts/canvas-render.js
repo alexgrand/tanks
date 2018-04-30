@@ -1,5 +1,7 @@
 'use strict';
 (function (exports) {
+exports.renderCanvas = {
+	start () {
 	const DOCUMENT_WIDTH = document.documentElement.clientWidth;
 	const DOCUMENT_HEIGHT = document.documentElement.clientHeight;
 	const {'blockSize': BLOCK_SIZE} = exports.gameSetup;
@@ -35,4 +37,6 @@
 		'canvasMiddle': CANVAS_MIDDLE_ELEMENT,
 		'canvasFront': CANVAS_FRONT_ELEMENT
 	};
+}
+};
 })(window.exports);

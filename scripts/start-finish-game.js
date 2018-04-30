@@ -1,6 +1,7 @@
 'use strict';
 (function (exports) {
-	exports.data.createData();
-	exports.tankMove.startTankMove();
-	exports.render.startRender();
+	exports.renderCanvas.start();
+	exports.data.create();
+	exports.tankMove.start();
+	exports.render.start();
 })(window.exports);

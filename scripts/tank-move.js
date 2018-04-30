@@ -1,7 +1,7 @@
 'use strict';
 (function (exports) {
 exports.tankMove = {
-	startTankMove () {
+	start () {
 		const {ROW_SIZE} = exports.data;
 		const {getRandomNumber} = exports.utils;
 		const {ALL_OBSTACLES} = exports.data;

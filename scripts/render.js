@@ -1,7 +1,7 @@
 'use strict';
 (function (exports) {
 exports.render = {
-	startRender () {
+	start () {
 		const {'renderCanvas': RENDER_CANVAS} = exports;
 		const {'blockSize': BLOCK_SIZE} = RENDER_CANVAS;
 		const {ALL_OBSTACLES} = exports.data;

@@ -5,7 +5,8 @@ exports.tankMove = {
 		const {ROW_SIZE} = exports.data;
 		const {getRandomNumber} = exports.utils;
 		const {ALL_OBSTACLES} = exports.data;
-		const ALL_TANKS = ALL_OBSTACLES[ALL_OBSTACLES.length - 1];
+		const ALL_TANKS = ALL_OBSTACLES.get('ALL_TANKS');
+		const OBSTACLES = ALL_OBSTACLES.get('OBSTACLES');
 		const KEY_CODES = new Map([
 			[37, 'left'],
 			[38, 'top'],
@@ -59,7 +60,7 @@ exports.tankMove = {
 
 			for (const i in sideIndexes) {
 				const index = tank.index + sideIndexes[i];
-				const isObstacle = ALL_OBSTACLES[index];
+				const isObstacle = OBSTACLES[index];
 
 				if (isObstacle && isObstacle.name !== 'tree') {
 					canMove[i] = !checkCollision(tank, isObstacle);
@@ -75,8 +76,8 @@ exports.tankMove = {
 				tank[tank.direction + 'Move']();
 				tank.findIndex();
 				if (currentIndex !== tank.index) {
-					ALL_OBSTACLES[tank.index] = tank;
-					ALL_OBSTACLES[currentIndex] = false;
+					OBSTACLES[tank.index] = tank;
+					OBSTACLES[currentIndex] = false;
 				}
 			}
 		};

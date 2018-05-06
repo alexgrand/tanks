@@ -12,7 +12,8 @@ exports.data = {
 		const ROW_SIZE = GAME_WIDTH / BLOCK;
 		const GAME_ELEMENTS = new Map();
 		const BLOCK_SHAPES = new Map();
-		const ALL_OBSTACLES = [];
+		const OBSTACLES = [];
+		const ALL_OBSTACLES = new Map();
 		const ALL_TANKS = new Map();
 
 		class Obstacle {
@@ -106,13 +107,13 @@ exports.data = {
 			BLOCK_SHAPES.set('shape3', setShape(4, 4));
 		};
 		const createBlock = (name, index, ObjClass) => {
-			ALL_OBSTACLES[index] = new ObjClass(name, index);
-			ALL_OBSTACLES[index].findCoords();
+			OBSTACLES[index] = new ObjClass(name, index);
+			OBSTACLES[index].findCoords();
 		};
 		const createBlockShape = (name, index, shape) => {
 			createBlock(name, index, Obstacle);
 			shape.forEach((it) => {
-				if (!ALL_OBSTACLES[index + it] && (index + it) < ALL_OBSTACLES.length) {
+				if (!OBSTACLES[index + it] && (index + it) < OBSTACLES.length) {
 					createBlock(name, (index + it), Obstacle);
 				}
 			});
@@ -127,7 +128,7 @@ exports.data = {
 		};
 		const createBorders = () => {
 			for (let i = 0; i < BLOCKS_AMOUNT; i++) {
-				if (!ALL_OBSTACLES[i] && checkIfBorder(i)) {
+				if (!OBSTACLES[i] && checkIfBorder(i)) {
 					createBlock('border', i, Obstacle);
 				}
 			}
@@ -143,7 +144,7 @@ exports.data = {
 			while (Math.floor(amount) > 0) {
 				const randomIndex = getRandomNumber(BLOCKS_AMOUNT, 0);
 
-				if (!ALL_OBSTACLES[randomIndex]) {
+				if (!OBSTACLES[randomIndex]) {
 					if (element !== 'npc' && element !== 'player') {
 						const randomShape = BLOCK_SHAPES.get('shape' + getRandomNumber(BLOCK_SHAPES.size, 1));
 
@@ -153,8 +154,8 @@ exports.data = {
 						createBlock(element, randomIndex, Tank);
 						const tankName = element + tankId;
 
-						ALL_OBSTACLES[randomIndex].id = tankId;
-						ALL_TANKS.set(tankName, ALL_OBSTACLES[randomIndex]);
+						OBSTACLES[randomIndex].id = tankId;
+						ALL_TANKS.set(tankName, OBSTACLES[randomIndex]);
 						tankId++;
 						amount--;
 					}
@@ -170,10 +171,11 @@ exports.data = {
 			for (const element in blocks) {
 				createObstacle(element, blocks);
 			}
-			ALL_OBSTACLES.push(ALL_TANKS);
+			ALL_OBSTACLES.set('ALL_TANKS', ALL_TANKS);
 		};
 
 		createAllObs();
+		ALL_OBSTACLES.set('OBSTACLES', OBSTACLES);
 		exports.data = {ALL_OBSTACLES, ROW_SIZE, Tank};
 	}
 };

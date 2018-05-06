@@ -5,7 +5,8 @@ exports.render = {
 		const {'renderCanvas': RENDER_CANVAS} = exports;
 		const {'blockSize': BLOCK_SIZE} = RENDER_CANVAS;
 		const {ALL_OBSTACLES} = exports.data;
-		const ALL_TANKS = ALL_OBSTACLES[ALL_OBSTACLES.length - 1];
+		const OBSTACLES = ALL_OBSTACLES.get('OBSTACLES');
+		const ALL_TANKS = ALL_OBSTACLES.get('ALL_TANKS');
 		const {canvasFront} = RENDER_CANVAS;
 		const CANVAS_WIDTH = canvasFront.width;
 		const CANVAS_HEIGHT = canvasFront.height;
@@ -31,7 +32,7 @@ exports.render = {
 			ctx.strokeRect(block.posX, block.posY, BLOCK_SIZE, BLOCK_SIZE);
 		};
 		const drawAllObstacles = () => {
-			ALL_OBSTACLES.forEach((it) => {
+			OBSTACLES.forEach((it) => {
 				if (it.name === 'border') {
 					ctxBack.fillStyle = 'black';
 					drawBlock(it, ctxBack);

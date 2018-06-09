@@ -1,0 +1,27 @@
+{
+  "name": "tanks",
+  "version": "1.0.0",
+  "description": "tanks game, pure js",
+  "main": "index.html",
+  "scripts": {
+    "test": "tanks start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexgrand/tanks.git"
+  },
+  "keywords": [
+    "tanks",
+    "game",
+    "javascript"
+  ],
+  "author": "AlexGrand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexgrand/tanks/issues"
+  },
+  "homepage": "https://github.com/alexgrand/tanks#readme",
+  "dependencies": {
+    "eslint": "^4.19.1"
+  }
+}

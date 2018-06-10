@@ -7,13 +7,6 @@ exports.tankMove = {
 		const {ALL_OBSTACLES} = exports.data;
 		const ALL_TANKS = ALL_OBSTACLES.get('ALL_TANKS');
 		const OBSTACLES = ALL_OBSTACLES.get('OBSTACLES');
-		const KEY_CODES = new Map([
-			[37, 'left'],
-			[38, 'top'],
-			[39, 'right'],
-			[40, 'bottom'],
-			[17, 'fire']
-		]);
 		const DIRECTIONS = new Map([
 			['left', {
 				'index1': -ROW_SIZE - 1,
@@ -103,25 +96,19 @@ exports.tankMove = {
 				}
 			});
 		};
-		const onDocumentKeydown = (evt) => {
+		const playerMove = (keyName) => {
 			const player = ALL_TANKS.get('player1');
 
-			if (KEY_CODES.has(evt.which)) {
-				const keyNum = evt.which;
-				const keyName = KEY_CODES.get(keyNum);
-
-				if (DIRECTIONS.get(keyName)) {
-					player.direction = keyName;
-					move(player);
-				}
+			if (DIRECTIONS.get(keyName)) {
+				player.direction = keyName;
+				move(player);
 			}
 		};
-		const movePlayerTank = () => {
-			document.addEventListener('keydown', onDocumentKeydown);
-		};
 
-		movePlayerTank();
+		// MovePlayerTank();
 		moveAllNpcTanks();
+
+		exports.tankMove = {playerMove};
 	}
 };
 })(window.exports);

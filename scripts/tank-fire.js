@@ -11,6 +11,12 @@ exports.tankFire = {
 
 			}
 		}
+
+		const createShot = () => {
+			console.log('fire');
+		};
+
+		exports.tankFire = {createShot};
 	}
 };
 })(window.exports);

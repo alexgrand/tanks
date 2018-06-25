@@ -3,6 +3,7 @@
 	exports.controller = {
 	start () {
 		const {playerMove} = exports.tankMove;
+		const {createShot} = exports.tankFire;
 		const KEY_CODES = new Map([
 			[37, 'left'],
 			[38, 'top'],
@@ -17,7 +18,7 @@
 				const keyName = KEY_CODES.get(keyNum);
 
 				if (keyName === 'fire') {
-					console.log(keyName);
+					createShot();
 				} else {
 					playerMove(keyName);
 				}

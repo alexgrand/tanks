@@ -105,9 +105,7 @@ exports.tankMove = {
 			}
 		};
 
-		// MovePlayerTank();
 		moveAllNpcTanks();
-
 		exports.tankMove = {playerMove};
 	}
 };

@@ -7,6 +7,7 @@ exports.render = {
 		const {ALL_OBSTACLES} = exports.data;
 		const OBSTACLES = ALL_OBSTACLES.get('OBSTACLES');
 		const ALL_TANKS = ALL_OBSTACLES.get('ALL_TANKS');
+		const ALL_SHOTS = ALL_OBSTACLES.get('ALL_SHOTS');
 		const {canvasFront} = RENDER_CANVAS;
 		const CANVAS_WIDTH = canvasFront.width;
 		const CANVAS_HEIGHT = canvasFront.height;
@@ -22,6 +23,20 @@ exports.render = {
 					ctxMiddle.fillStyle = 'blue';
 				}
 				ctxMiddle.fillRect(tank.posX, tank.posY, BLOCK_SIZE, BLOCK_SIZE);
+			});
+
+			ALL_SHOTS.forEach((shot) => {
+				let shotHeight = BLOCK_SIZE;
+				let shotWidth = BLOCK_SIZE;
+
+				if (shot.direction === 'top' || shot.direction === 'bottom') {
+					shotWidth = 1;
+				} else if (shot.direction === 'left' || shot.direction === 'right') {
+					shotHeight = 1;
+				}
+
+				ctxMiddle.fillStyle = 'red';
+				ctxMiddle.fillRect(shot.posX, shot.posY, shotWidth, shotHeight);
 			});
 
 			requestAnimationFrame(loop);

@@ -18,7 +18,7 @@
 				const keyName = KEY_CODES.get(keyNum);
 
 				if (keyName === 'fire') {
-					createShot();
+					createShot('player1');
 				} else {
 					playerMove(keyName);
 				}

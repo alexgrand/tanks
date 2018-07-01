@@ -45,7 +45,6 @@ exports.data = {
 		class Tank extends Obstacle {
 			constructor (name, index) {
 				super(name, index);
-				this.canMove = true;
 				this.direction = 'top';
 				this.firepower = 1;
 				this.velocity = 2;

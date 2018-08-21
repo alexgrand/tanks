@@ -21,7 +21,10 @@
     "url": "https://github.com/alexgrand/tanks/issues"
   },
   "homepage": "https://github.com/alexgrand/tanks#readme",
-  "dependencies": {
-    "eslint": "^4.19.1"
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   }
 }
